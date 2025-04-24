@@ -24,6 +24,13 @@ const Courses = () => {
       btnColor: "bg-red-500 hover:bg-red-600 text-white",
       link: "/courses/deletecourses", // Update with actual delete route when ready
     },
+    {
+      title: "Complete Courses",
+      description: "Mark your finished courses and track completion status.",
+      btnText: "Complete",
+      btnColor: "bg-green-500 hover:bg-green-600 text-white",
+      link: "/courses/completecourses", // Update with the actual route
+    },
   ];
 
   return (

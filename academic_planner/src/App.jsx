@@ -11,6 +11,7 @@ import Courses from "./Pages/Courses";
 import AddCourses from "./Components/course/AddCourses";
 import ViewCourses from "./Components/course/ViewCourses";
 import DeleteCourses from "./Components/course/DeleteCourses";
+import CompleteCourses from "./Components/course/CompleteCourses";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="courses/addcourses" element={<AddCourses />} />
           <Route path="courses/viewcourses" element={<ViewCourses />} />
           <Route path="courses/deletecourses" element={<DeleteCourses />} />
+          <Route path="courses/completecourses" element={<CompleteCourses />} />
         </Routes>
       </Router>
     </>

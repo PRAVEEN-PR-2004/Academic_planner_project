@@ -34,6 +34,30 @@ exports.markCourseAsCompleted = async (req, res) => {
       .json({ message: "Error updating course", error: err.message });
   }
 };
+// DELETE /courses/:id
+exports.deleteCourse = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const userId = req.user.id;
+
+    const deletedCourse = await Course.findOneAndDelete({
+      _id: courseId,
+      user: userId,
+    });
+
+    if (!deletedCourse) {
+      return res
+        .status(404)
+        .json({ message: "Course not found or not authorized" });
+    }
+
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error deleting course", error: err.message });
+  }
+};
 
 // courseController.js
 exports.getMyCourses = async (req, res) => {

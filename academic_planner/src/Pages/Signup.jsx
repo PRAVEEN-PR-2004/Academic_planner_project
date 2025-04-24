@@ -7,10 +7,30 @@ const Signup = ({ switchToLogin, closeModal }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Signed up as ${form.name}`);
-    closeModal(); // Close the modal after successful signup
+
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`Signed up successfully as ${data.name || form.name}`);
+        closeModal(); // Close modal on success
+      } else {
+        alert(`Signup failed: ${data.message || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Something went wrong during signup.");
+    }
   };
 
   return (

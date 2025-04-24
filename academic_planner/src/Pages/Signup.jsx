@@ -22,14 +22,15 @@ const Signup = ({ switchToLogin, closeModal }) => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(`Signed up successfully as ${data.name || form.name}`);
-        closeModal(); // Close modal on success
+        localStorage.setItem("token", data.token); // Store JWT
+        alert(`Welcome, ${data.name}!`);
+        closeModal();
       } else {
-        alert(`Signup failed: ${data.message || "Unknown error"}`);
+        alert(`Signup failed: ${data.message}`);
       }
-    } catch (error) {
-      console.error("Signup error:", error);
-      alert("Something went wrong during signup.");
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Something went wrong.");
     }
   };
 

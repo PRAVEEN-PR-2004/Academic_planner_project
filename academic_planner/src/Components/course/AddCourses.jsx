@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const AddCourses = () => {
   const [form, setForm] = useState({
     courseName: "",
@@ -13,10 +13,36 @@ const AddCourses = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", form);
-    // You can push this data to backend or local state here
+    try {
+      const token = localStorage.getItem("token"); // assuming token is stored in localStorage
+      const response = await axios.post(
+        "http://localhost:5000/courses/createCourse",
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Course created:", response.data);
+      alert("Course successfully created!");
+      // Optionally reset the form
+      setForm({
+        courseName: "",
+        subjectName: "",
+        deadline: "",
+        chapters: "",
+        task: "",
+      });
+    } catch (error) {
+      console.error(
+        "Error creating course:",
+        error.response?.data || error.message
+      );
+      alert("Failed to create course. Check console for details.");
+    }
   };
 
   return (

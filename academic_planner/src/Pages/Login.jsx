@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Make sure to import axios
 
 const Login = ({ switchToSignup, closeModal }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -7,10 +8,28 @@ const Login = ({ switchToSignup, closeModal }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Logging in with email: ${form.email}`);
-    closeModal(); // Close the modal after successful login
+    try {
+      // Send login request to backend
+      const response = await axios.post("http://localhost:5000/api/login", {
+        email: form.email,
+        password: form.password,
+      });
+
+      // ✅ Save token to localStorage after successful login
+      localStorage.setItem("token", response.data.token);
+
+      console.log("Login successful!");
+
+      // Optionally close the modal and handle success
+      closeModal();
+
+      // You can now redirect or fetch user data using the token
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      alert("Login failed! Please check your credentials.");
+    }
   };
 
   return (

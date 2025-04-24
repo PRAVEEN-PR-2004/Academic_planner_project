@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db"); // <-- Import your config file
+const connectDB = require("./config/db");
 const authRoutes = require("./Routes/authRoutes");
+const courseRoutes = require("./Routes/courseRoutes"); // No changes here
 
 const app = express();
 const PORT = 5000;
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/courses", courseRoutes); // Correct route setup
 app.use("/api", authRoutes);
 
 // Start server

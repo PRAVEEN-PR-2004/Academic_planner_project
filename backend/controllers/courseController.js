@@ -12,6 +12,7 @@ exports.createCourse = async (req, res) => {
   }
 };
 
+// courseController.js
 exports.getMyCourses = async (req, res) => {
   try {
     const courses = await Course.find({ user: req.user.id }).sort({

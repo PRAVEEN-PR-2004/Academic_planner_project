@@ -11,21 +11,18 @@ const Login = ({ switchToSignup, closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send login request to backend
       const response = await axios.post("http://localhost:5000/api/login", {
-        email: form.email,
-        password: form.password,
+        email: form.email.trim(),
+        password: form.password.trim(),
       });
 
-      // ✅ Save token to localStorage after successful login
+      // Save token
+      console.log("i am here");
       localStorage.setItem("token", response.data.token);
 
       console.log("Login successful!");
 
-      // Optionally close the modal and handle success
-      closeModal();
-
-      // You can now redirect or fetch user data using the token
+      closeModal(); // optional
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
       alert("Login failed! Please check your credentials.");

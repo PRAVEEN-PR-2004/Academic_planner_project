@@ -11,20 +11,23 @@ exports.createCourse = async (req, res) => {
       .json({ message: "Error creating course", error: err.message });
   }
 };
-exports.reduceChapterCount = async (req, res) => {
-  const { courseId } = req.body;
-
+// PATCH /courses/:id/complete
+exports.markCourseAsCompleted = async (req, res) => {
   try {
-    const course = await Course.findOne({ _id: courseId, user: req.user.id });
-    if (!course) return res.status(404).json({ message: "Course not found" });
+    const courseId = req.params.id;
+    const userId = req.user.id;
 
-    if (course.chapters > 0) {
-      course.chapters -= 1;
-      await course.save();
-      res.status(200).json({ message: "Chapter marked complete", course });
-    } else {
-      res.status(400).json({ message: "No more chapters to mark complete" });
+    const updatedCourse = await Course.findOneAndUpdate(
+      { _id: courseId, user: userId },
+      { status: true },
+      { new: true }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
     }
+
+    res.status(200).json(updatedCourse);
   } catch (err) {
     res
       .status(500)

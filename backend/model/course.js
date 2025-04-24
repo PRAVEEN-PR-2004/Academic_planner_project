@@ -7,6 +7,7 @@ const courseSchema = new mongoose.Schema(
     deadline: { type: Date, required: true },
     chapters: { type: Number, required: true },
     task: { type: String, required: true },
+    status: { type: Boolean, default: false }, // <-- Add this
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: true }

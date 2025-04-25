@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BookOpen, Layers, ClipboardList, CalendarDays } from "lucide-react";
 
 const ViewCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -28,38 +29,47 @@ const ViewCourses = () => {
   }, []);
 
   return (
-    <div className="min-h-screen p-6 mt-16 bg-gray-100">
-      {" "}
-      {/* Added mt-16 for margin-top */}
-      <h1 className="mb-8 text-4xl font-semibold text-center text-primary">
-        Your Courses
+    <div className="min-h-screen px-4 pt-28 sm:px-6 lg:px-8 bg-gray-50">
+      <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
+        Your Added Courses
       </h1>
-      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+      <div className="grid max-w-6xl gap-6 mx-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {courses.length > 0 ? (
           courses.map((course) => (
             <div
               key={course._id}
-              className="p-6 transition-all duration-300 ease-in-out bg-white rounded-lg shadow-lg hover:shadow-xl"
+              className="flex flex-col justify-between h-[300px] p-6 transition-shadow duration-300 bg-white shadow-md rounded-2xl hover:shadow-xl"
             >
-              <h2 className="mb-4 text-2xl font-semibold text-primary">
-                {course.courseName}
-              </h2>
-              <div className="space-y-3">
-                <p className="text-lg">
-                  <strong className="font-medium">Subject:</strong>{" "}
-                  {course.subjectName}
-                </p>
-                <p className="text-lg">
-                  <strong className="font-medium">Chapters:</strong>{" "}
-                  {course.chapters}
-                </p>
-                <p className="text-lg">
-                  <strong className="font-medium">Task:</strong> {course.task}
-                </p>
-                <p className="text-lg">
-                  <strong className="font-medium">Deadline:</strong>{" "}
-                  {new Date(course.deadline).toLocaleDateString()}
-                </p>
+              <div className="space-y-4">
+                <h2 className="pb-2 text-2xl font-bold text-center text-gray-800 border-b">
+                  {course.courseName}
+                </h2>
+                <div className="flex items-start gap-2 text-sm text-gray-600">
+                  <BookOpen className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Subject:</strong> {course.subjectName}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-600">
+                  <Layers className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Chapters:</strong> {course.chapters}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-600">
+                  <ClipboardList className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Task:</strong> {course.task}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-600">
+                  <CalendarDays className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Deadline:</strong>{" "}
+                    {new Date(course.deadline).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
             </div>
           ))

@@ -50,14 +50,14 @@ const Dashboard = () => {
   const COLORS = ["#7E57C2", "#FF8A65", "#4DB6AC", "#BA68C8"];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-[#f8fafc] text-gray-800">
-      <div className="w-full max-w-7xl">
-        <h1 className="mb-6 text-3xl font-semibold text-center text-purple-800">
-          📊 Course Dashboard
+    <div className="min-h-screen bg-[#f8fafc] text-gray-800 pt-24 px-4">
+      <div className="w-full mx-auto max-w-7xl">
+        <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
+          Manage Your Courses
         </h1>
 
         {courses.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
             {/* Info Cards */}
             <div className="p-4 text-center bg-white rounded-lg shadow-md">
               <p className="text-sm text-gray-500">Total Courses</p>
@@ -79,7 +79,7 @@ const Dashboard = () => {
             </div>
 
             {/* Charts */}
-            <div className="w-full col-span-1 p-6 bg-white rounded-lg shadow-md md:col-span-2 lg:col-span-2">
+            <div className="w-full col-span-2 p-6 bg-white rounded-lg shadow-md">
               <h2 className="mb-4 text-lg font-semibold text-purple-700">
                 📚 Chapters per Course
               </h2>
@@ -103,7 +103,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <div className="w-full col-span-1 p-6 bg-white rounded-lg shadow-md md:col-span-2 lg:col-span-2">
+            <div className="w-full col-span-2 p-6 bg-white rounded-lg shadow-md">
               <h2 className="mb-4 text-lg font-semibold text-purple-700">
                 ✅ Course Completion Status
               </h2>

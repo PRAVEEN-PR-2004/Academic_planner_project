@@ -21,7 +21,7 @@ const Timetable = () => {
   const [courses, setCourses] = useState([]);
   const [events, setEvents] = useState([]);
 
-  // 1) Fetch courses
+  // 1) Fetch courses from your backend API
   useEffect(() => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:5000/courses/myCourses", {
@@ -63,14 +63,14 @@ const Timetable = () => {
         0
       );
       blocks.push({
-        title: `${c.courseName}`,
+        title: `${c.courseName} - ${c.subjectName}`, // Display courseName and subjectName
         start,
         end,
         status: c.status,
       });
     });
 
-    // Single 1-hour review block at 5 PM for all completed
+    // Single 1-hour review block at 5 PM for all completed courses
     if (completed.length) {
       const start = new Date(
         today.getFullYear(),
@@ -87,9 +87,35 @@ const Timetable = () => {
         0
       );
       blocks.push({
-        title: `Review: ${completed.map((c) => c.courseName).join(", ")}`,
+        title: `Review: ${completed
+          .map((c) => `${c.courseName} (${c.subjectName})`)
+          .join(", ")}`, // Show subjectName in review title
         start,
         end,
+        status: true,
+      });
+
+      // 1-hour revision block at 7 PM for completed courses
+      const revisionStart = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        19,
+        0
+      );
+      const revisionEnd = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        20,
+        0
+      );
+      blocks.push({
+        title: `Revision: ${completed
+          .map((c) => `${c.courseName} (${c.subjectName})`)
+          .join(", ")}`, // Show subjectName in revision title
+        start: revisionStart,
+        end: revisionEnd,
         status: true,
       });
     }

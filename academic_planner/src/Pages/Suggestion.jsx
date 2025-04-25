@@ -47,6 +47,8 @@ const Suggestion = () => {
       <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
         Manage Your Courses
       </h1>
+
+      {/* Chat Container */}
       <div
         ref={chatContainerRef}
         className="flex-1 w-full max-w-4xl px-4 space-y-4 overflow-y-auto sm:px-10 lg:px-32 pb-28"
@@ -54,18 +56,24 @@ const Suggestion = () => {
         {chatHistory.map((msg, index) => (
           <div
             key={index}
-            className={`max-w-[75%] px-4 py-2 rounded-lg text-sm whitespace-pre-wrap ${
-              msg.type === "user"
-                ? "bg-yellow-100 text-black ml-auto text-right"
-                : "bg-gray-300 mr-auto text-left"
+            className={`flex ${
+              msg.type === "user" ? "justify-end" : "justify-start"
             }`}
           >
-            {msg.text}
+            <div
+              className={`inline-block px-4 py-2 rounded-xl text-sm whitespace-pre-wrap shadow-sm ${
+                msg.type === "user"
+                  ? "bg-yellow-200 text-gray-900 font-semibold"
+                  : "bg-gray-300 text-gray-900"
+              }`}
+            >
+              {msg.text}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Input bar */}
+      {/* Input Bar */}
       <div className="fixed bottom-0 flex justify-center w-full bg-gray-100">
         <div className="flex items-center w-full max-w-4xl gap-2 px-4 py-4 sm:px-10 lg:px-32">
           <input

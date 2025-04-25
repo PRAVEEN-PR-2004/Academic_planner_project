@@ -46,36 +46,44 @@ const Dashboard = () => {
     { name: "Completed", value: courses.filter((c) => c.status).length },
     { name: "Pending", value: courses.filter((c) => !c.status).length },
   ];
-  const COLORS = [
-    "#8884d8",
-    "#82ca9d",
-    "#ffc658",
-    "#ff8042",
-    "#8dd1e1",
-    "#a4de6c",
-    "#d0ed57",
-    "#ffc0cb",
-    "#ffb6c1",
-    "#87ceeb",
-  ];
 
-  // const COLORS = ["#00C49F", "#FF8042"];
+  const COLORS = ["#7E57C2", "#FF8A65", "#4DB6AC", "#BA68C8"];
 
   return (
-    <div className="p-4 mx-auto max-w-7xl">
-      <h1 className="mb-10 text-3xl font-bold text-center md:text-4xl text-primary">
-        📊 Course Dashboard
-      </h1>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[#f8fafc] text-gray-800">
+      <div className="w-full max-w-7xl">
+        <h1 className="mb-6 text-3xl font-semibold text-center text-purple-800">
+          📊 Course Dashboard
+        </h1>
 
-      {courses.length > 0 ? (
-        <>
-          {/* Bar Chart Centered */}
-          <div className="my-12 lg:min-h-screen lg:flex lg:items-center lg:justify-center">
-            <div className="w-full">
-              <h2 className="mb-6 text-xl font-bold text-center md:text-2xl text-primary">
+        {courses.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Info Cards */}
+            <div className="p-4 text-center bg-white rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">Total Courses</p>
+              <h2 className="text-2xl font-bold">{courses.length}</h2>
+            </div>
+            <div className="p-4 text-center bg-white rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">Completed Courses</p>
+              <h2 className="text-2xl font-bold">{statusData[0].value}</h2>
+            </div>
+            <div className="p-4 text-center bg-white rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">Pending Courses</p>
+              <h2 className="text-2xl font-bold">{statusData[1].value}</h2>
+            </div>
+            <div className="p-4 text-center bg-white rounded-lg shadow-md">
+              <p className="text-sm text-gray-500">Total Chapters</p>
+              <h2 className="text-2xl font-bold">
+                {courses.reduce((sum, c) => sum + c.chapters, 0)}
+              </h2>
+            </div>
+
+            {/* Charts */}
+            <div className="w-full col-span-1 p-6 bg-white rounded-lg shadow-md md:col-span-2 lg:col-span-2">
+              <h2 className="mb-4 text-lg font-semibold text-purple-700">
                 📚 Chapters per Course
               </h2>
-              <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+              <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chapterData}>
                     <XAxis dataKey="name" />
@@ -94,41 +102,43 @@ const Dashboard = () => {
                 </ResponsiveContainer>
               </div>
             </div>
-          </div>
 
-          {/* Pie Chart */}
-          <div className="w-full my-12">
-            <h2 className="mb-6 text-xl font-bold text-center md:text-2xl text-primary">
-              ✅ Course Completion Status
-            </h2>
-            <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={statusData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius="70%"
-                    label
-                  >
-                    {statusData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend verticalAlign="bottom" height={36} />
-                </PieChart>
-              </ResponsiveContainer>
+            <div className="w-full col-span-1 p-6 bg-white rounded-lg shadow-md md:col-span-2 lg:col-span-2">
+              <h2 className="mb-4 text-lg font-semibold text-purple-700">
+                ✅ Course Completion Status
+              </h2>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={statusData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius="70%"
+                      label
+                    >
+                      {statusData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend verticalAlign="bottom" height={36} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
-        </>
-      ) : (
-        <p className="text-lg text-center text-gray-500 md:text-xl">
-          No courses found.
-        </p>
-      )}
+        ) : (
+          <p className="mt-20 text-lg text-center text-gray-500">
+            No courses found.
+          </p>
+        )}
+      </div>
     </div>
   );
 };

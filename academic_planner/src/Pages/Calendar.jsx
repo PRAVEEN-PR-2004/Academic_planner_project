@@ -8,6 +8,8 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import enUS from "date-fns/locale/en-US";
 
+import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+
 const locales = { "en-US": enUS };
 const localizer = dateFnsLocalizer({
   format,
@@ -33,7 +35,46 @@ const CourseCalendar = () => {
         const evts = data
           .filter((c) => c.deadline)
           .map((c) => ({
-            title: `${c.courseName} – ${c.task}`,
+            title: (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  fontSize: "0.75rem",
+                }}
+              >
+                {c.status ? (
+                  <FaCheckCircle
+                    color="#16a34a"
+                    style={{
+                      minWidth: "14px",
+                      minHeight: "14px",
+                      flexShrink: 0,
+                    }}
+                  />
+                ) : (
+                  <FaExclamationCircle
+                    color="#dc2626"
+                    style={{
+                      minWidth: "14px",
+                      minHeight: "14px",
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
+                <span
+                  style={{
+                    wordBreak: "break-word",
+                    textAlign: "center",
+                  }}
+                >
+                  {c.subjectName}
+                </span>
+              </div>
+            ),
             start: new Date(c.deadline),
             end: new Date(c.deadline),
             allDay: true,
@@ -44,16 +85,15 @@ const CourseCalendar = () => {
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
-  const eventStyleGetter = (event) => ({
+  const eventStyleGetter = () => ({
     style: {
-      backgroundColor: event.status ? "#16a34a" : "#dc2626", // green = complete, red = deadline
-      color: "white",
-      borderRadius: "6px",
-      padding: "4px 6px",
+      backgroundColor: "transparent",
+      color: "inherit",
       fontWeight: "500",
-      fontSize: "0.75rem",
-      overflowWrap: "break-word",
-      lineHeight: 1.2,
+      fontSize: "0.85rem",
+      display: "flex",
+      alignItems: "center",
+      border: "none",
     },
   });
 
@@ -66,11 +106,11 @@ const CourseCalendar = () => {
       <div className="flex justify-center mb-4">
         <div className="flex items-center gap-4 text-sm text-gray-700">
           <div className="flex items-center gap-1">
-            <span className="inline-block w-4 h-4 bg-red-600 rounded-sm"></span>
+            <FaExclamationCircle className="text-red-600" />
             <span>Upcoming Deadline</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="inline-block w-4 h-4 bg-green-600 rounded-sm"></span>
+            <FaCheckCircle className="text-green-600" />
             <span>Completed Task</span>
           </div>
         </div>
@@ -88,7 +128,7 @@ const CourseCalendar = () => {
             endAccessor="end"
             views={["month"]}
             defaultView="month"
-            date={new Date(2025, 3, 1)} // April is month 3 (0-based index)
+            date={new Date(2025, 3, 1)} // April is month 3 (0-based)
             toolbar={false}
             eventPropGetter={eventStyleGetter}
             popup

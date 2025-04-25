@@ -46,58 +46,88 @@ const Dashboard = () => {
     { name: "Completed", value: courses.filter((c) => c.status).length },
     { name: "Pending", value: courses.filter((c) => !c.status).length },
   ];
+  const COLORS = [
+    "#8884d8",
+    "#82ca9d",
+    "#ffc658",
+    "#ff8042",
+    "#8dd1e1",
+    "#a4de6c",
+    "#d0ed57",
+    "#ffc0cb",
+    "#ffb6c1",
+    "#87ceeb",
+  ];
 
-  const COLORS = ["#00C49F", "#FF8042"];
+  // const COLORS = ["#00C49F", "#FF8042"];
 
   return (
-    <div className="p-4">
-      <h1 className="mb-6 text-3xl font-bold text-center text-primary">
-        Course Dashboard
+    <div className="p-4 mx-auto max-w-7xl">
+      <h1 className="mb-10 text-3xl font-bold text-center md:text-4xl text-primary">
+        📊 Course Dashboard
       </h1>
 
       {courses.length > 0 ? (
         <>
-          <div className="my-8">
-            <h2 className="mb-4 text-xl font-semibold text-center">
-              Chapters per Course
-            </h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chapterData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="chapters" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
+          {/* Bar Chart Centered */}
+          <div className="my-12 lg:min-h-screen lg:flex lg:items-center lg:justify-center">
+            <div className="w-full">
+              <h2 className="mb-6 text-xl font-bold text-center md:text-2xl text-primary">
+                📚 Chapters per Course
+              </h2>
+              <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chapterData}>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="chapters">
+                      {chapterData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </div>
 
-          <div className="my-8">
-            <h2 className="mb-4 text-xl font-semibold text-center">
-              Course Completion Status
+          {/* Pie Chart */}
+          <div className="w-full my-12">
+            <h2 className="mb-6 text-xl font-bold text-center md:text-2xl text-primary">
+              ✅ Course Completion Status
             </h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={statusData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  label
-                >
-                  {statusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+            <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={statusData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="70%"
+                    label
+                  >
+                    {statusData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" height={36} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </>
       ) : (
-        <p className="text-center text-gray-500">No courses found.</p>
+        <p className="text-lg text-center text-gray-500 md:text-xl">
+          No courses found.
+        </p>
       )}
     </div>
   );

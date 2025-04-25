@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
+import Calendar from "../Pages/Calendar";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // For the mobile menu toggle
@@ -15,6 +16,7 @@ const Navbar = () => {
     { name: "Timetable", path: "/timetable" },
     { name: "Suggestions", path: "/suggestions" },
     { name: "Courses", path: "/courses" },
+    { name: "Calendar", path: "/calendar" },
   ];
 
   const openLoginModal = () => {

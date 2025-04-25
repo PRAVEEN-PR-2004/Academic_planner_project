@@ -30,7 +30,6 @@ const CourseCalendar = () => {
         return res.json();
       })
       .then((data) => {
-        console.log("Fetched courses:", data);
         const evts = data
           .filter((c) => c.deadline)
           .map((c) => ({
@@ -48,30 +47,39 @@ const CourseCalendar = () => {
   const eventStyleGetter = (event) => {
     return {
       style: {
-        backgroundColor: event.status ? "#4CAF50" : "#F44336",
+        backgroundColor: event.status ? "#16a34a" : "#dc2626", // green/red
         color: "white",
-        borderRadius: "4px",
-        padding: "0 4px",
+        borderRadius: "6px",
+        padding: "4px 6px",
+        fontWeight: "500",
+        fontSize: "0.75rem",
+        overflowWrap: "break-word",
+        lineHeight: 1.2,
       },
     };
   };
 
   return (
-    <div className="max-w-4xl p-4 mx-auto">
-      <h1 className="mb-6 text-3xl font-bold text-center">
-        📅 My Course Deadlines
-      </h1>
-      <div style={{ height: "75vh" }}>
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          defaultView="month"
-          views={["month", "week", "day"]}
-          eventPropGetter={eventStyleGetter}
-          popup
-        />
+    <div className="min-h-screen px-2 py-8 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="max-w-6xl p-4 mx-auto bg-white rounded-xl shadow-lg">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-4">
+          📅 My Course Deadlines
+        </h1>
+
+        <div className="overflow-x-auto">
+          <div style={{ minWidth: "600px", height: "75vh" }}>
+            <Calendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              defaultView="month"
+              views={["month", "week", "day"]}
+              eventPropGetter={eventStyleGetter}
+              popup
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

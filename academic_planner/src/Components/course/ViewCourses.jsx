@@ -28,33 +28,39 @@ const ViewCourses = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="mb-6 text-3xl font-bold text-center text-primary">
+    <div className="min-h-screen p-6 mt-16 bg-gray-100">
+      {" "}
+      {/* Added mt-16 for margin-top */}
+      <h1 className="mb-8 text-4xl font-semibold text-center text-primary">
         Your Courses
       </h1>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {courses.length > 0 ? (
           courses.map((course) => (
             <div
               key={course._id}
-              className="p-4 bg-white border rounded shadow"
+              className="p-6 transition-all duration-300 ease-in-out bg-white rounded-lg shadow-lg hover:shadow-xl"
             >
-              <h2 className="text-xl font-semibold text-primary">
+              <h2 className="mb-4 text-2xl font-semibold text-primary">
                 {course.courseName}
               </h2>
-              <p>
-                <strong>Subject:</strong> {course.subjectName}
-              </p>
-              <p>
-                <strong>Chapters:</strong> {course.chapters}
-              </p>
-              <p>
-                <strong>Task:</strong> {course.task}
-              </p>
-              <p>
-                <strong>Deadline:</strong>{" "}
-                {new Date(course.deadline).toLocaleDateString()}
-              </p>
+              <div className="space-y-3">
+                <p className="text-lg">
+                  <strong className="font-medium">Subject:</strong>{" "}
+                  {course.subjectName}
+                </p>
+                <p className="text-lg">
+                  <strong className="font-medium">Chapters:</strong>{" "}
+                  {course.chapters}
+                </p>
+                <p className="text-lg">
+                  <strong className="font-medium">Task:</strong> {course.task}
+                </p>
+                <p className="text-lg">
+                  <strong className="font-medium">Deadline:</strong>{" "}
+                  {new Date(course.deadline).toLocaleDateString()}
+                </p>
+              </div>
             </div>
           ))
         ) : (

@@ -20,6 +20,7 @@ const localizer = dateFnsLocalizer({
 const Timetable = () => {
   const [courses, setCourses] = useState([]);
   const [events, setEvents] = useState([]);
+  const today = new Date();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -37,7 +38,6 @@ const Timetable = () => {
   useEffect(() => {
     if (!courses.length) return;
 
-    const today = new Date();
     const pending = courses.filter((c) => !c.status);
     const completed = courses.filter((c) => c.status);
     const blocks = [];
@@ -130,9 +130,19 @@ const Timetable = () => {
     },
   });
 
+  const formattedDate = format(today, "EEEE MMM d");
+
   return (
     <div className="p-6 pt-24 mx-auto max-w-7xl">
-      <div style={{ height: "calc(100vh - 160px)" }}>
+      <h1 className="mb-10 text-xl font-bold text-center text-yellow-500 sm:text-2xl md:text-3xl lg:text-3xl">
+        Manage Your Courses
+      </h1>
+
+      <div className="mb-6 text-center">
+        <p className="text-lg font-semibold text-gray-700">{formattedDate}</p>
+      </div>
+
+      <div style={{ height: "calc(100vh - 200px)" }}>
         <BigCalendar
           localizer={localizer}
           events={events}
@@ -140,11 +150,13 @@ const Timetable = () => {
           endAccessor="end"
           defaultView="day"
           views={["day"]}
+          date={today}
+          toolbar={false}
           min={new Date(0, 0, 0, 8, 0)}
           max={new Date(0, 0, 0, 20, 0)}
-          eventPropGetter={eventStyleGetter}
           step={60}
           timeslots={1}
+          eventPropGetter={eventStyleGetter}
         />
       </div>
     </div>

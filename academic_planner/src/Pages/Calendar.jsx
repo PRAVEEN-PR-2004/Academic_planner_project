@@ -44,41 +44,55 @@ const CourseCalendar = () => {
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
-  const eventStyleGetter = (event) => {
-    return {
-      style: {
-        backgroundColor: event.status ? "#16a34a" : "#dc2626", // green/red
-        color: "white",
-        borderRadius: "6px",
-        padding: "4px 6px",
-        fontWeight: "500",
-        fontSize: "0.75rem",
-        overflowWrap: "break-word",
-        lineHeight: 1.2,
-      },
-    };
-  };
+  const eventStyleGetter = (event) => ({
+    style: {
+      backgroundColor: event.status ? "#16a34a" : "#dc2626", // green = complete, red = deadline
+      color: "white",
+      borderRadius: "6px",
+      padding: "4px 6px",
+      fontWeight: "500",
+      fontSize: "0.75rem",
+      overflowWrap: "break-word",
+      lineHeight: 1.2,
+    },
+  });
 
   return (
-    <div className="min-h-screen px-2 py-8 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-6xl p-4 mx-auto bg-white rounded-xl shadow-lg">
-        <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-4">
-          📅 My Course Deadlines
-        </h1>
+    <div className="min-h-screen px-4 py-8 pt-16 bg-gray-50">
+      <h1 className="mt-3 mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
+        Manage Your Courses
+      </h1>
 
-        <div className="overflow-x-auto">
-          <div style={{ minWidth: "600px", height: "75vh" }}>
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              defaultView="month"
-              views={["month", "week", "day"]}
-              eventPropGetter={eventStyleGetter}
-              popup
-            />
+      <div className="flex justify-center mb-4">
+        <div className="flex items-center gap-4 text-sm text-gray-700">
+          <div className="flex items-center gap-1">
+            <span className="inline-block w-4 h-4 bg-red-600 rounded-sm"></span>
+            <span>Upcoming Deadline</span>
           </div>
+          <div className="flex items-center gap-1">
+            <span className="inline-block w-4 h-4 bg-green-600 rounded-sm"></span>
+            <span>Completed Task</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <div
+          className="w-full bg-white rounded-lg shadow-md sm:w-11/12 md:w-3/4 lg:w-2/3"
+          style={{ minWidth: "300px", height: "75vh" }}
+        >
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            views={["month"]}
+            defaultView="month"
+            date={new Date(2025, 3, 1)} // April is month 3 (0-based index)
+            toolbar={false}
+            eventPropGetter={eventStyleGetter}
+            popup
+          />
         </div>
       </div>
     </div>

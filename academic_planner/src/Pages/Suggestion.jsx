@@ -1,50 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Suggestion = () => {
   const [message, setMessage] = useState("");
-  const [response, setResponse] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
+  const chatContainerRef = useRef(null);
 
   const handleSend = async () => {
+    if (!message.trim()) return;
+
+    const newChat = { type: "user", text: message };
+    setChatHistory((prev) => [...prev, newChat]);
+    setMessage("");
+
     try {
       const res = await fetch("http://localhost:5001/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
       });
 
       const data = await res.json();
 
-      if (res.ok) {
-        setResponse(data.reply);
-      } else {
-        setResponse(data.error || "Something went wrong!");
-      }
+      const botReply = {
+        type: "bot",
+        text: res.ok ? data.reply : data.error || "Something went wrong!",
+      };
+
+      setChatHistory((prev) => [...prev, botReply]);
     } catch (error) {
-      setResponse("Failed to connect to the server.");
+      setChatHistory((prev) => [
+        ...prev,
+        { type: "bot", text: "Failed to connect to the server." },
+      ]);
     }
   };
 
+  useEffect(() => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [chatHistory]);
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h2>Ask the Academic Assistant</h2>
-      <input
-        type="text"
-        placeholder="Type your question..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        style={{ width: "300px", padding: "8px" }}
-      />
-      <button
-        onClick={handleSend}
-        style={{ marginLeft: "10px", padding: "8px 16px" }}
+    <div className="flex flex-col items-center w-full h-screen pt-20 bg-gray-100">
+      <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
+        Manage Your Courses
+      </h1>
+      <div
+        ref={chatContainerRef}
+        className="flex-1 w-full max-w-4xl px-4 space-y-4 overflow-y-auto sm:px-10 lg:px-32 pb-28"
       >
-        Send
-      </button>
-      <div style={{ marginTop: "20px", whiteSpace: "pre-wrap" }}>
-        <strong>Response:</strong>
-        <p>{response}</p>
+        {chatHistory.map((msg, index) => (
+          <div
+            key={index}
+            className={`max-w-[75%] px-4 py-2 rounded-lg text-sm whitespace-pre-wrap ${
+              msg.type === "user"
+                ? "bg-yellow-100 text-black ml-auto text-right"
+                : "bg-gray-300 mr-auto text-left"
+            }`}
+          >
+            {msg.text}
+          </div>
+        ))}
+      </div>
+
+      {/* Input bar */}
+      <div className="fixed bottom-0 flex justify-center w-full bg-gray-100">
+        <div className="flex items-center w-full max-w-4xl gap-2 px-4 py-4 sm:px-10 lg:px-32">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <button
+            onClick={handleSend}
+            className="px-5 py-2 text-white transition rounded-full bg-primary hover:opacity-90"
+          >
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );

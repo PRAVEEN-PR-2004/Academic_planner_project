@@ -6,7 +6,7 @@ const Courses = () => {
   const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch all courses
+  // Fetch all courses (unchanged)
   useEffect(() => {
     const fetchCourses = async () => {
       const token = localStorage.getItem("token");
@@ -31,7 +31,7 @@ const Courses = () => {
     fetchCourses();
   }, []);
 
-  // Delete a course
+  // Delete a course (unchanged)
   const deleteCourse = async (courseId) => {
     const token = localStorage.getItem("token");
     try {
@@ -57,7 +57,7 @@ const Courses = () => {
     }
   };
 
-  // Mark course as completed manually
+  // Mark course as completed manually (unchanged)
   const markCourseAsCompleted = async (courseId) => {
     const token = localStorage.getItem("token");
 
@@ -89,7 +89,7 @@ const Courses = () => {
     }
   };
 
-  // Decrease chapters by 1
+  // Decrease chapters by 1 (unchanged)
   const decreaseChapter = async (courseId) => {
     const token = localStorage.getItem("token");
 
@@ -122,121 +122,192 @@ const Courses = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 pb-10 bg-gray-100 pt-28 sm:px-6 lg:px-8">
-      <h1 className="mb-6 text-3xl font-bold text-center text-primary">
-        My Courses
-      </h1>
+    <div className="min-h-screen px-4 pb-10 bg-gray-50 pt-28 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col items-center justify-between mb-8 md:flex-row">
+          <h1 className="text-3xl font-bold text-gray-800 font-display">
+            My Courses
+          </h1>
 
-      {/* Large screen Add Course Button */}
-      <div className="justify-end hidden mx-auto mb-6 lg:flex max-w-7xl">
-        <button
-          onClick={() => navigate("/courses/addcourses")}
-          className="px-5 py-2 text-white transition duration-200 rounded-md bg-primary"
-        >
-          + Add Course
-        </button>
-      </div>
+          {/* Large screen Add Course Button */}
+          <button
+            onClick={() => navigate("/courses/addcourses")}
+            className="hidden px-6 py-2 text-sm font-medium text-white transition-all duration-200 rounded-lg shadow-md md:inline-flex bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Add New Course
+          </button>
+        </div>
 
-      {/* Small screen Add Course Button */}
-      <div className="fixed bottom-6 right-6 lg:hidden">
-        <button
-          onClick={() => navigate("/courses/addcourses")}
-          className="px-4 py-3 text-white rounded-full shadow-lg bg-primary"
-        >
-          + Add
-        </button>
-      </div>
+        {/* Small screen Add Course Button */}
+        <div className="fixed bottom-6 right-6 lg:hidden">
+          <button
+            onClick={() => navigate("/courses/addcourses")}
+            className="flex items-center justify-center p-4 text-white rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            <span className="text-xl">+</span>
+          </button>
+        </div>
 
-      <div className="grid gap-6 mx-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl">
         {courses.length > 0 ? (
-          courses.map((course) => (
-            <div
-              key={course._id}
-              className="flex flex-col justify-between h-[400px] p-6 bg-white shadow rounded-xl hover:shadow-md transition duration-300"
-            >
-              <div className="space-y-4">
-                <h2 className="pb-2 text-xl font-semibold text-center text-gray-800 border-b">
-                  {course.courseName}
-                </h2>
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {courses.map((course) => (
+              <div
+                key={course._id}
+                className="flex flex-col overflow-hidden transition-all duration-200 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md"
+              >
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-semibold text-gray-800 truncate">
+                      {course.courseName}
+                    </h2>
+                    {course.status && (
+                      <span className="px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full">
+                        Completed
+                      </span>
+                    )}
+                  </div>
 
-                <div className="flex items-start gap-2 text-sm text-gray-700">
-                  <BookOpen className="w-4 h-4 text-primary mt-0.5" />
-                  <span>
-                    <strong>Subject:</strong> {course.subjectName}
-                  </span>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-blue-50">
+                        <BookOpen className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">
+                          Subject
+                        </p>
+                        <p className="text-gray-800">{course.subjectName}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-indigo-50">
+                        <Layers className="w-5 h-5 text-indigo-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">
+                          Progress
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <div className="w-full h-2 bg-gray-200 rounded-full">
+                            <div
+                              className="h-2 bg-indigo-600 rounded-full"
+                              style={{
+                                width: `${
+                                  ((course.chapters - course.pendingChapters) /
+                                    course.chapters) *
+                                  100
+                                }%`,
+                              }}
+                            ></div>
+                          </div>
+                          <span className="text-sm text-gray-600">
+                            {course.chapters - course.pendingChapters}/
+                            {course.chapters}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-purple-50">
+                        <ClipboardList className="w-5 h-5 text-purple-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">
+                          Task
+                        </p>
+                        <p className="text-gray-800">{course.task}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 rounded-lg bg-amber-50">
+                        <CalendarDays className="w-5 h-5 text-amber-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">
+                          Deadline
+                        </p>
+                        <p className="text-gray-800">
+                          {new Date(course.deadline).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-start gap-2 text-sm text-gray-700">
-                  <Layers className="w-4 h-4 text-primary mt-0.5" />
-                  <span>
-                    <strong>Pending Chapters:</strong> {course.pendingChapters}
-                    completed{course.completedChapters}
-                    total{course.chapters}
-                  </span>
-                </div>
+                <div className="p-4 bg-gray-50">
+                  <div className="flex flex-col gap-2">
+                    {course.pendingChapters > 0 ? (
+                      <button
+                        onClick={() => decreaseChapter(course._id)}
+                        className="w-full px-4 py-2 text-sm font-medium text-white transition-all duration-200 bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        Complete 1 Chapter
+                      </button>
+                    ) : (
+                      <button
+                        className="w-full px-4 py-2 text-sm font-medium text-gray-400 bg-gray-200 rounded-md cursor-not-allowed"
+                        disabled
+                      >
+                        All Chapters Completed
+                      </button>
+                    )}
 
-                <div className="flex items-start gap-2 text-sm text-gray-700">
-                  <ClipboardList className="w-4 h-4 text-primary mt-0.5" />
-                  <span>
-                    <strong>Task:</strong> {course.task}
-                  </span>
-                </div>
+                    {!course.status ? (
+                      <button
+                        onClick={() => markCourseAsCompleted(course._id)}
+                        className="w-full px-4 py-2 text-sm font-medium text-white transition-all duration-200 bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                      >
+                        Mark as Completed
+                      </button>
+                    ) : (
+                      <button
+                        className="w-full px-4 py-2 text-sm font-medium text-gray-400 bg-gray-200 rounded-md cursor-not-allowed"
+                        disabled
+                      >
+                        Course Completed
+                      </button>
+                    )}
 
-                <div className="flex items-start gap-2 text-sm text-gray-700">
-                  <CalendarDays className="w-4 h-4 text-primary mt-0.5" />
-                  <span>
-                    <strong>Deadline:</strong>{" "}
-                    {new Date(course.deadline).toLocaleDateString()}
-                  </span>
+                    <button
+                      onClick={() => deleteCourse(course._id)}
+                      className="w-full px-4 py-2 text-sm font-medium text-white transition-all duration-200 bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    >
+                      Delete Course
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              <div className="flex flex-col gap-2 mt-6">
-                {course.pendingChapters > 0 ? (
-                  <button
-                    onClick={() => decreaseChapter(course._id)}
-                    className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-                  >
-                    Complete 1 Chapter
-                  </button>
-                ) : (
-                  <button
-                    className="w-full py-2 text-white bg-green-500 rounded-md cursor-not-allowed"
-                    disabled
-                  >
-                    All Chapters Completed
-                  </button>
-                )}
-
-                {!course.status ? (
-                  <button
-                    onClick={() => markCourseAsCompleted(course._id)}
-                    className="w-full py-2 text-white bg-green-500 rounded-md hover:bg-green-600"
-                  >
-                    Mark as Completed
-                  </button>
-                ) : (
-                  <button
-                    className="w-full py-2 text-white bg-gray-500 rounded-md cursor-not-allowed"
-                    disabled
-                  >
-                    Completed
-                  </button>
-                )}
-
-                <button
-                  onClick={() => deleteCourse(course._id)}
-                  className="w-full py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
-                >
-                  Delete Course
-                </button>
-              </div>
-            </div>
-          ))
+            ))}
+          </div>
         ) : (
-          <p className="text-center text-gray-500 col-span-full">
-            No courses found.
-          </p>
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="p-6 mb-4 bg-gray-100 rounded-full">
+              <BookOpen className="w-10 h-10 text-gray-400" />
+            </div>
+            <h3 className="mb-2 text-lg font-medium text-gray-800">
+              No courses found
+            </h3>
+            <p className="max-w-md mb-6 text-gray-500">
+              You haven't added any courses yet. Get started by adding your
+              first course.
+            </p>
+            <button
+              onClick={() => navigate("/courses/addcourses")}
+              className="px-6 py-2 text-sm font-medium text-white transition-all duration-200 rounded-lg shadow-md bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Add Your First Course
+            </button>
+          </div>
         )}
       </div>
     </div>

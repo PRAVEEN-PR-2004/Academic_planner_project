@@ -7,7 +7,9 @@ const courseSchema = new mongoose.Schema(
     deadline: { type: Date, required: true },
     chapters: { type: Number, required: true },
     task: { type: String, required: true },
-    status: { type: Boolean, default: false }, // <-- Add this
+    pendingChapters: { type: Number, required: true }, // ✅ just required
+    completedChapters: { type: Number, default: 0 },
+    status: { type: Boolean, default: false },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: true }

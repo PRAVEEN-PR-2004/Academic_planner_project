@@ -2,7 +2,18 @@ const Course = require("../model/course");
 
 exports.createCourse = async (req, res) => {
   try {
-    const course = new Course({ ...req.body, user: req.user.id });
+    const { courseName, subjectName, deadline, chapters, task } = req.body;
+
+    const course = new Course({
+      courseName,
+      subjectName,
+      deadline,
+      chapters,
+      task,
+      pendingChapters: chapters, // ✅ set pendingChapters equal to chapters manually
+      user: req.user.id,
+    });
+
     const savedCourse = await course.save();
     res.status(201).json(savedCourse);
   } catch (err) {
@@ -11,6 +22,7 @@ exports.createCourse = async (req, res) => {
       .json({ message: "Error creating course", error: err.message });
   }
 };
+
 // PATCH /courses/:id/complete
 exports.markCourseAsCompleted = async (req, res) => {
   try {

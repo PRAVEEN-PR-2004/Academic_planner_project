@@ -154,12 +154,19 @@ const Courses = () => {
               </div>
 
               <div className="flex flex-col gap-2 mt-6">
-                {!course.status && (
+                {!course.status ? (
                   <button
                     onClick={() => markCourseAsCompleted(course._id)}
                     className="w-full py-2 text-white bg-green-500 rounded-md hover:bg-green-600"
                   >
                     Mark as Completed
+                  </button>
+                ) : (
+                  <button
+                    className="w-full py-2 text-white bg-gray-500 rounded-md cursor-not-allowed"
+                    disabled
+                  >
+                    Completed
                   </button>
                 )}
                 <button

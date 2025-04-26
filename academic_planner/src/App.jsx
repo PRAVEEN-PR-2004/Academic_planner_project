@@ -9,9 +9,7 @@ import Signup from "./Pages/Signup";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Courses from "./Pages/Courses";
 import AddCourses from "./Components/course/AddCourses";
-import ViewCourses from "./Components/course/ViewCourses";
-import DeleteCourses from "./Components/course/DeleteCourses";
-import CompleteCourses from "./Components/course/CompleteCourses";
+
 import Calendar from "./Pages/Calendar";
 function App() {
   return (
@@ -27,9 +25,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/suggestion" element={<Suggestion />} />
           <Route path="courses/addcourses" element={<AddCourses />} />
-          <Route path="courses/viewcourses" element={<ViewCourses />} />
-          <Route path="courses/deletecourses" element={<DeleteCourses />} />
-          <Route path="courses/completecourses" element={<CompleteCourses />} />
+
           <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </Router>

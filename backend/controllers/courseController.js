@@ -99,6 +99,7 @@ exports.decreaseChapter = async (req, res) => {
 
     if (course.pendingChapters > 0) {
       course.pendingChapters -= 1;
+      course.completedChapters += 1;
     }
 
     const updatedCourse = await course.save();

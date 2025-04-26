@@ -43,15 +43,15 @@ const Suggestion = () => {
   }, [chatHistory]);
 
   return (
-    <div className="flex flex-col items-center w-full h-screen pt-20 bg-gray-100">
-      <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
+    <div className="flex flex-col items-center w-full h-screen pt-20 bg-gradient-to-b from-gray-100 to-gray-200">
+      <h1 className="mb-6 text-3xl font-bold text-primary">
         Academic Assistance
       </h1>
 
-      {/* Chat Container */}
+      {/* Chat Section */}
       <div
         ref={chatContainerRef}
-        className="flex-1 w-full max-w-4xl px-4 space-y-4 overflow-y-auto sm:px-10 lg:px-32 pb-28"
+        className="flex-1 w-full max-w-4xl p-6 pb-32 space-y-4 overflow-y-auto" // <== added pb-32 here
       >
         {chatHistory.map((msg, index) => (
           <div
@@ -61,10 +61,10 @@ const Suggestion = () => {
             }`}
           >
             <div
-              className={`inline-block px-4 py-2 rounded-xl text-sm whitespace-pre-wrap shadow-sm ${
+              className={`px-5 py-3 max-w-[75%] text-sm rounded-3xl shadow-md whitespace-pre-wrap ${
                 msg.type === "user"
-                  ? "bg-yellow-200 text-gray-900 font-semibold"
-                  : "bg-gray-300 text-gray-900"
+                  ? "bg-primary text-white rounded-br-none"
+                  : "bg-white text-gray-900 rounded-bl-none"
               }`}
             >
               {msg.text}
@@ -74,19 +74,19 @@ const Suggestion = () => {
       </div>
 
       {/* Input Bar */}
-      <div className="fixed bottom-0 flex justify-center w-full bg-gray-100">
-        <div className="flex items-center w-full max-w-4xl gap-2 px-4 py-4 sm:px-10 lg:px-32">
+      <div className="fixed bottom-0 flex justify-center w-full bg-transparent">
+        <div className="flex items-center w-full max-w-4xl gap-3 p-4">
           <input
             type="text"
             placeholder="Type your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+            className="flex-1 px-5 py-3 text-sm bg-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <button
             onClick={handleSend}
-            className="px-5 py-2 text-white transition rounded-full bg-primary hover:opacity-90"
+            className="px-6 py-3 text-sm font-semibold text-white transition-all rounded-full shadow-md bg-primary hover:bg-primary-dark"
           >
             Send
           </button>

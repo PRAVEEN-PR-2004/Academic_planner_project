@@ -170,6 +170,8 @@ const Courses = () => {
                   <Layers className="w-4 h-4 text-primary mt-0.5" />
                   <span>
                     <strong>Pending Chapters:</strong> {course.pendingChapters}
+                    completed{course.completedChapters}
+                    total{course.chapters}
                   </span>
                 </div>
 

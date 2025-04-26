@@ -107,7 +107,8 @@ const Courses = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(
+      // First decrease the chapter count
+      const decreaseRes = await fetch(
         `http://localhost:5000/courses/courses/${courseId}/decreaseChapter`,
         {
           method: "PATCH",
@@ -118,17 +119,44 @@ const Courses = () => {
         }
       );
 
-      if (!res.ok) {
+      if (!decreaseRes.ok) {
         throw new Error("Failed to decrease chapter");
       }
 
-      const updatedCourse = await res.json();
+      const updatedCourse = await decreaseRes.json();
 
-      setCourses((prevCourses) =>
-        prevCourses.map((course) =>
-          course._id === updatedCourse._id ? updatedCourse : course
-        )
-      );
+      // Check if this was the last chapter
+      if (updatedCourse.pendingChapters === 0) {
+        // Automatically mark as completed
+        const completeRes = await fetch(
+          `http://localhost:5000/courses/courses/${courseId}/complete`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!completeRes.ok) {
+          throw new Error("Failed to mark course as completed");
+        }
+
+        const completedCourse = await completeRes.json();
+
+        setCourses((prevCourses) =>
+          prevCourses.map((course) =>
+            course._id === completedCourse._id ? completedCourse : course
+          )
+        );
+      } else {
+        setCourses((prevCourses) =>
+          prevCourses.map((course) =>
+            course._id === updatedCourse._id ? updatedCourse : course
+          )
+        );
+      }
     } catch (error) {
       console.error("Error decreasing chapter:", error.message);
     }

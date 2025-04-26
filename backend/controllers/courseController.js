@@ -10,7 +10,7 @@ exports.createCourse = async (req, res) => {
       deadline,
       chapters,
       task,
-      pendingChapters: chapters, // ✅ set pendingChapters equal to chapters manually
+      pendingChapters: chapters, // Store the number of chapters
       user: req.user.id,
     });
 
@@ -82,5 +82,29 @@ exports.getMyCourses = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error fetching courses", error: err.message });
+  }
+};
+// PATCH /courses/:id/decreaseChapter
+exports.decreaseChapter = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const userId = req.user.id;
+
+    const course = await Course.findOne({ _id: courseId, user: userId });
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    if (course.pendingChapters > 0) {
+      course.pendingChapters -= 1;
+    }
+
+    const updatedCourse = await course.save();
+    res.status(200).json(updatedCourse);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Error decreasing chapter", error: err.message });
   }
 };

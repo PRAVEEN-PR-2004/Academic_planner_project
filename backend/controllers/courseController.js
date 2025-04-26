@@ -11,6 +11,7 @@ exports.createCourse = async (req, res) => {
       chapters,
       task,
       pendingChapters: chapters, // Store the number of chapters
+      completedChapters: chapters - chapters,
       user: req.user.id,
     });
 

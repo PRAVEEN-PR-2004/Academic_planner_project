@@ -36,7 +36,10 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 z-50 w-full bg-white shadow-lg">
       <div className="flex items-center justify-between px-4 py-3 mx-auto max-w-7xl">
-        <Link to="/" className="text-2xl font-bold tracking-wider text-primary">
+        <Link
+          to="/"
+          className="text-xl font-bold tracking-wider sm:text-2xl text-primary"
+        >
           Academic Planner
         </Link>
 

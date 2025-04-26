@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import enUS from "date-fns/locale/en-US";
-
-import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaExclamationCircle,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
 const locales = { "en-US": enUS };
 const localizer = dateFnsLocalizer({
@@ -21,9 +23,11 @@ const localizer = dateFnsLocalizer({
 
 const CourseCalendar = () => {
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    setIsLoading(true);
     fetch("http://localhost:5000/courses/myCourses", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -81,58 +85,114 @@ const CourseCalendar = () => {
             status: c.status,
           }));
         setEvents(evts);
+        setIsLoading(false);
       })
-      .catch((err) => console.error("Fetch error:", err));
+      .catch((err) => {
+        console.error("Fetch error:", err);
+        setIsLoading(false);
+      });
   }, []);
 
-  const eventStyleGetter = () => ({
+  const eventStyleGetter = (event) => ({
     style: {
-      backgroundColor: "transparent",
+      backgroundColor: event.status ? "#f0fdf4" : "#fef2f2",
       color: "inherit",
       fontWeight: "500",
       fontSize: "0.85rem",
       display: "flex",
       alignItems: "center",
       border: "none",
+      borderRadius: "6px",
+      padding: "2px 4px",
+      boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
     },
   });
 
-  return (
-    <div className="min-h-screen px-4 py-8 pt-16 bg-gray-50">
-      <h1 className="mt-3 mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
-        Deadlines Calender
-      </h1>
+  const dayPropGetter = (date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-      <div className="flex justify-center mb-4">
-        <div className="flex items-center gap-4 text-sm text-gray-700">
-          <div className="flex items-center gap-1">
-            <FaExclamationCircle className="text-red-600" />
-            <span>Upcoming Deadline</span>
+    return {
+      style: {
+        backgroundColor:
+          date.toDateString() === today.toDateString() ? "#f5f3ff" : "white",
+        borderRight: "1px solid #eee",
+        borderBottom: "1px solid #eee",
+      },
+    };
+  };
+
+  return (
+    <div className="min-h-screen px-4 py-8 pt-16 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col items-center mb-8">
+          <div className="flex items-center justify-center w-16 h-16 mb-4 text-indigo-600 bg-indigo-100 rounded-full">
+            <FaCalendarAlt className="text-2xl" />
           </div>
-          <div className="flex items-center gap-1">
-            <FaCheckCircle className="text-green-600" />
-            <span>Completed Task</span>
+          <h1 className="text-3xl font-bold text-center text-gray-800 font-display">
+            Deadlines Calendar
+          </h1>
+          <p className="mt-2 text-gray-600">
+            Track all your course deadlines in one place
+          </p>
+        </div>
+
+        <div className="flex justify-center mb-6">
+          <div className="flex items-center gap-6 p-3 bg-white rounded-lg shadow-sm">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-green-50">
+              <FaCheckCircle className="text-green-600" />
+              <span className="text-sm font-medium text-gray-700">
+                Completed
+              </span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-red-50">
+              <FaExclamationCircle className="text-red-600" />
+              <span className="text-sm font-medium text-gray-700">
+                Upcoming
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex justify-center">
-        <div
-          className="w-full bg-white rounded-lg shadow-md sm:w-11/12 md:w-3/4 lg:w-2/3"
-          style={{ minWidth: "300px", height: "75vh" }}
-        >
-          <Calendar
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            views={["month"]}
-            defaultView="month"
-            date={new Date(2025, 3, 1)} // April is month 3 (0-based)
-            toolbar={false}
-            eventPropGetter={eventStyleGetter}
-            popup
-          />
+        <div className="overflow-hidden bg-white shadow-md rounded-xl">
+          {isLoading ? (
+            <div className="flex items-center justify-center h-96">
+              <div className="w-8 h-8 border-4 border-indigo-500 rounded-full border-t-transparent animate-spin"></div>
+            </div>
+          ) : (
+            <div style={{ height: "70vh" }}>
+              <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                views={["month"]}
+                defaultView="month"
+                date={new Date(2025, 3, 1)}
+                toolbar={true}
+                eventPropGetter={eventStyleGetter}
+                dayPropGetter={dayPropGetter}
+                popup
+                components={{
+                  toolbar: (props) => (
+                    <div className="flex items-center justify-between p-4 border-b">
+                      <button
+                        onClick={() => props.onNavigate("PREV")}
+                        className="p-2 text-gray-600 rounded-lg hover:bg-gray-100"
+                      ></button>
+                      <span className="text-lg font-semibold text-gray-800">
+                        {format(props.date, "MMMM yyyy")}
+                      </span>
+                      <button
+                        onClick={() => props.onNavigate("NEXT")}
+                        className="p-2 text-gray-600 rounded-lg hover:bg-gray-100"
+                      ></button>
+                    </div>
+                  ),
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

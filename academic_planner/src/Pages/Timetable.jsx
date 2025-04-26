@@ -135,7 +135,7 @@ const Timetable = () => {
   return (
     <div className="p-6 pt-24 mx-auto max-w-7xl">
       <h1 className="mb-10 text-xl font-bold text-center text-yellow-500 sm:text-2xl md:text-3xl lg:text-3xl">
-        Manage Your Courses
+        Daily Timetable
       </h1>
 
       <div className="mb-6 text-center">

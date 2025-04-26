@@ -1,71 +1,181 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BookOpen, Layers, ClipboardList, CalendarDays } from "lucide-react";
 
 const Courses = () => {
-  const cardData = [
-    {
-      title: "Add Course",
-      description:
-        "Add new academic courses to your planner with important information like deadlines, credits, and instructors.",
-      btnText: "Add Now",
-      btnColor: "bg-yellow-400 hover:bg-yellow-500 text-gray-900",
-      link: "/courses/addcourses",
-    },
-    {
-      title: "View Courses",
-      description:
-        "Browse and manage all the courses you’ve added. See course details and upcoming deadlines at a glance.",
-      btnText: "View All",
-      btnColor: "bg-yellow-400 hover:bg-yellow-500 text-gray-900",
-      link: "/courses/viewcourses",
-    },
-    {
-      title: "Delete Course",
-      description:
-        "Clean up your planner by removing outdated or irrelevant courses. Keep your dashboard focused.",
-      btnText: "Delete",
-      btnColor: "bg-red-500 hover:bg-red-600 text-white",
-      link: "/courses/deletecourses",
-    },
-    {
-      title: "Complete Courses",
-      description:
-        "Mark courses as completed once you finish them. Track your progress and celebrate milestones.",
-      btnText: "Complete",
-      btnColor: "bg-green-500 hover:bg-green-600 text-white",
-      link: "/courses/completecourses",
-    },
-  ];
+  const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
+
+  // Fetch all courses
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const res = await fetch("http://localhost:5000/courses/myCourses", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch courses");
+        }
+
+        const data = await res.json();
+        setCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error.message);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  // Delete a course
+  const deleteCourse = async (courseId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch(
+        `http://localhost:5000/courses/courses/${courseId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to delete course");
+      }
+
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course._id !== courseId)
+      );
+    } catch (error) {
+      console.error("Error deleting course:", error.message);
+    }
+  };
+
+  // Mark course as completed
+  const markCourseAsCompleted = async (courseId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/courses/courses/${courseId}/complete`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to update course status");
+      }
+
+      const updatedCourse = await res.json();
+
+      setCourses((prevCourses) =>
+        prevCourses.map((course) =>
+          course._id === updatedCourse._id ? updatedCourse : course
+        )
+      );
+    } catch (error) {
+      console.error("Error updating course status:", error.message);
+    }
+  };
 
   return (
-    <div className="min-h-screen px-4 pt-28 sm:px-6 lg:px-8 bg-gray-50">
-      <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
-        Manage Your Courses
+    <div className="min-h-screen px-4 pb-10 bg-gray-100 pt-28 sm:px-6 lg:px-8">
+      <h1 className="mb-6 text-3xl font-bold text-center text-primary">
+        My Courses
       </h1>
 
-      <div className="grid max-w-6xl gap-6 mx-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {cardData.map((card, index) => (
-          <div
-            key={index}
-            className="flex flex-col justify-between h-[300px] p-6 transition-shadow duration-300 bg-white shadow-md rounded-2xl hover:shadow-xl"
-          >
-            <div>
-              <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                {card.title}
-              </h2>
-              <p className="text-sm leading-relaxed text-gray-600">
-                {card.description}
-              </p>
+      {/* Large screen Add Course Button */}
+      <div className="justify-end hidden mx-auto mb-6 lg:flex max-w-7xl">
+        <button
+          onClick={() => navigate("/courses/addcourses")}
+          className="px-5 py-2 text-white transition duration-200 rounded-md bg-primary "
+        >
+          + Add Course
+        </button>
+      </div>
+
+      {/* Small screen Add Course Button */}
+      <div className="fixed bottom-6 right-6 lg:hidden">
+        <button
+          onClick={() => navigate("/courses/addcourses")}
+          className="px-4 py-3 text-white rounded-full shadow-lg bg-primary"
+        >
+          + Add
+        </button>
+      </div>
+
+      <div className="grid gap-6 mx-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl">
+        {courses.length > 0 ? (
+          courses.map((course) => (
+            <div
+              key={course._id}
+              className="flex flex-col justify-between h-[350px] p-6 bg-white shadow rounded-xl hover:shadow-md transition duration-300"
+            >
+              <div className="space-y-4">
+                <h2 className="pb-2 text-xl font-semibold text-center text-gray-800 border-b">
+                  {course.courseName}
+                </h2>
+                <div className="flex items-start gap-2 text-sm text-gray-700">
+                  <BookOpen className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Subject:</strong> {course.subjectName}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-700">
+                  <Layers className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Chapters:</strong> {course.chapters}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-700">
+                  <ClipboardList className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Task:</strong> {course.task}
+                  </span>
+                </div>
+                <div className="flex items-start gap-2 text-sm text-gray-700">
+                  <CalendarDays className="w-4 h-4 text-primary mt-0.5" />
+                  <span>
+                    <strong>Deadline:</strong>{" "}
+                    {new Date(course.deadline).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2 mt-6">
+                {!course.status && (
+                  <button
+                    onClick={() => markCourseAsCompleted(course._id)}
+                    className="w-full py-2 text-white bg-green-500 rounded-md hover:bg-green-600"
+                  >
+                    Mark as Completed
+                  </button>
+                )}
+                <button
+                  onClick={() => deleteCourse(course._id)}
+                  className="w-full py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                >
+                  Delete Course
+                </button>
+              </div>
             </div>
-            <Link to={card.link}>
-              <button
-                className={`w-full py-2 rounded-xl text-sm font-semibold transition duration-200 ${card.btnColor}`}
-              >
-                {card.btnText}
-              </button>
-            </Link>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-center text-gray-500 col-span-full">
+            No courses found.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -100,7 +100,7 @@ const CourseCalendar = () => {
   return (
     <div className="min-h-screen px-4 py-8 pt-16 bg-gray-50">
       <h1 className="mt-3 mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
-        Manage Your Courses
+        Deadlines Calender
       </h1>
 
       <div className="flex justify-center mb-4">

@@ -45,7 +45,7 @@ const Suggestion = () => {
   return (
     <div className="flex flex-col items-center w-full h-screen pt-20 bg-gray-100">
       <h1 className="mb-10 text-xl font-bold text-center text-primary sm:text-2xl md:text-3xl lg:text-3xl">
-        Manage Your Courses
+        Academic Assistance
       </h1>
 
       {/* Chat Container */}

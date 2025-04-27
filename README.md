@@ -1,28 +1,33 @@
-🌐 AgroConnect
+# 🌟 Academic Planner
 
-AgroConnect is an e-commerce platform designed to help users post and sell their products, while others can browse, filter, and purchase items. It provides a robust system with features like carts, wishlists, and profile management.
+**Academic Planner** is a comprehensive platform designed to help students manage their academic tasks, schedules, and important deadlines effectively. It provides a smooth experience with features like task creation, management, planning, and user authentication.
+
+---
 
 ## 🚀 Features
 
-1. **🛒 Huge Collections of Products**  
-   Explore a variety of products posted by different users.
+1. **🗓️ Task Management**  
+   Create, update, and organize your academic tasks and deadlines easily.
 
-2. **🔍 Search and Filters**  
-   Quickly find products using search and filtering options based on category, price, and more.
+2. **📋 Daily and Weekly Planners**  
+   Visualize your tasks on daily and weekly views for better planning.
 
-3. **🛍️ Cart**  
-   Easily add products to your cart and proceed to checkout.
+3. **✅ Mark Task Completion**  
+   Stay on top of your progress by marking tasks as completed.
 
-4. **💖 Wishlist**  
-   Save products to your wishlist for future reference or purchase.
+4. **🔍 Search and Filter Tasks**  
+   Easily search and filter tasks by date, subject, or status.
 
-5. **🖥️ Interactive UI**  
-   Enjoy a smooth and responsive user interface designed for ease of navigation.
+5. **🛡️ User Authentication**  
+   Secure login and registration system.
 
-6. **👤 Profile Maintenance**  
-   Manage your personal profile, view order history, and update details with ease.
-7. **🔒 Google OAuth Login**  
-   Securely log in to your account using Google OAuth, providing a seamless authentication experience.
+6. **💬 Interactive UI**  
+   A clean, responsive, and intuitive user interface built with React and TailwindCSS.
+
+7. **🌐 Python Microservice**  
+   Backend services like analytics or notifications are handled separately using a Python server.
+
+---
 
 ## 🛠️ Getting Started
 
@@ -30,162 +35,97 @@ AgroConnect is an e-commerce platform designed to help users post and sell their
 
 Before you begin, ensure you have the following installed:
 
-- **React.js**: Frontend framework
-- **Java Spring Boot**: Backend services and API
-- **Node.js**: JavaScript runtime environment
-- **Maven**: Dependency management for Spring Boot
+- **Node.js**: For the Express backend and React frontend.
+- **Python 3**: For running the Python server.
+- **Vite**: For fast frontend development experience.
+- **Virtual Environment**: To manage Python dependencies.
 
-### 🔑 Google OAuth Configuration
+---
 
-To enable Google OAuth login, follow these steps to set up your Google Cloud project and obtain your client ID and secret. This configuration is essential for allowing users to securely log in with their Google accounts.
+## 📥 Installation
 
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Create a new project or select an existing one.
-3. Navigate to "Credentials" and create OAuth 2.0 credentials.
-4. Set the redirect URI to match your backend application's endpoint.
-5. Add your client ID and secret to the application properties of your Spring Boot backend.
-
-### 📥 Installation
-
-To set up the project locally, follow these steps:
+Follow these steps to set up the project locally:
 
 1. Clone the repository:
 
    ```bash
-   https://github.com/lokesh-kumaravel/AgroConnect.git
-
+   git clone <your-repo-link-here>
    ```
 
 2. Navigate into the project directory:
 
    ```bash
-   cd AgroConnect
-
+   cd your-project-folder
    ```
 
-3. Navigate into the Frontend directory:
+3. **Set up Frontend (academic_planner)**:
 
    ```bash
-   npm install
-
-   ```
-
-4. Navigate into the Backend directory:
-
-   ```bash
-   mvn install
-
-   ```
-
-5. Run the frontend:
-
-   ```bash
-   npm run dev
-
-   ```
-
-6. Run the backend:
-   ```bash
-   mvn spring-boot:run
-   ```
-
-Hosted on: PythonAnywhere
-
-3. Core Features
-   👤 User Profiles
-   Create a profile with student details and enrolled courses.
-
-🗓️ Timetable Management
-Add and manage classes, assignments, exams.
-
-⚡ Smart Scheduling (AI-Powered)
-AI suggests optimal study slots based on tasks and deadlines.
-
-⏰ Deadline Reminders
-Automatic notifications for upcoming tasks, exams, and assignments.
-
-📈 Progress Tracker
-Visual dashboard showing completed vs pending tasks and total study hours.
-
-🧠 AI Study Tips
-Personalized suggestions and productivity advice via Groq API.
-
-📅 Calendar View
-View schedules by Day, Week, or Month for easier management.
-
-4. AI Recommendation System
-   The AI server utilizes Groq’s Llama 3 model via a Python Flask backend.
-
-🔹 How It Works:
-Input:
-Students interact with a chatbot or request study suggestions.
-
-Processing:
-
-Uses a crafted system prompt to:
-
-Focus on academic planning
-
-Provide scheduling, goal-setting, and productivity advice
-
-Keep responses friendly, concise, and on-topic
-
-Output:
-AI responds with personalized:
-
-Study tips
-
-Schedule optimizations
-
-Motivational strategies
-
-🔹 NLP and User Modeling
-AI considers:
-
-Student goals
-
-Subjects enrolled
-
-Upcoming deadlines
-
-User preferences to generate accurate and effective suggestions.
-
-5. Project Setup Instructions
-   ⚙️ Frontend Setup
-   bash
-   Copy
-   Edit
-   cd frontend
+   cd academic_planner
    npm install
    npm run dev
-   ⚙️ Backend Setup
-   bash
-   Copy
-   Edit
+   ```
+
+4. **Set up Node.js Backend (backend)**:
+
+   ```bash
    cd backend
    npm install
    npm run dev
-   Setup required environment variables:
+   ```
 
-MONGODB_URI
+5. **Set up Python Server (pythonserver)**:
+   ```bash
+   cd pythonserver
+   python -m venv venv
+   source venv/bin/activate  # (On Windows: venv\Scripts\activate)
+   pip install -r requirements.txt
+   python app.py
+   ```
 
-JWT_SECRET
+---
 
-FRONTEND_URL
+## 🗂️ Project Structure
 
-⚙️ AI Server Setup
-bash
-Copy
-Edit
-cd ai-server
-pip install -r requirements.txt
-python app.py
-Setup .env file inside ai-server/ with:
+```bash
+/your-project
+│
+├── academic_planner        # Frontend (React + Vite + TailwindCSS)
+│   ├── public
+│   ├── src
+│   └── index.html
+│
+├── backend                 # Backend (Node.js + Express)
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── model
+│   ├── routes
+│   └── index.js
+│
+└── pythonserver            # Python Server (Microservices / APIs)
+    ├── app.py
+    └── .env
+```
 
-env
-Copy
-Edit
-GROQ_API_KEY=your_groq_api_key
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](./LICENSE). See the LICENSE file for more details.
+
+---
+
+## 📞 Contact
+
+For any inquiries or feedback, feel free to reach out:
+
+- **Name**: Praveen
+- **Email**: [praveen2004ttp@gmail.com](mailto:praveen2004ttp@gmail.com)
+- **GitHub**: [PRAVEEN-PR-2004](https://github.com/PRAVEEN-PR-2004)
+- **Portfolio**: [Praveen's Portfolio](https://main--praveen-portfolio2.netlify.app/)
+
+---
 
 ### 🏠 Home Page
 

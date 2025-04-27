@@ -128,6 +128,10 @@ Academic_Planner
 
 ---
 
+## 🖥️ ARCHITECTURE DIAGRAM
+
+![ARCHITECTURE DIAGRAM](./screenshots/image6.png)
+
 ## 🖥️ Screenshots
 
 ### 🏠 Home Page

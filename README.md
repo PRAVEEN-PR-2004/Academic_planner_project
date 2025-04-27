@@ -114,18 +114,18 @@ GROQ_API_KEY=your_groq_api_key
 
 ![DashboardPage](./screenshots/image3.png)
 
-### 🏠 Dash Board
+### 🏠 Calender
 
-![DashboardPage](./screenshots/image4.png)
+![CalenderPage](./screenshots/image4.png)
 
-### 🏠 Dash Board
+### 🏠 Time Table
 
-![DashboardPage](./screenshots/image5.png)
+![TimeTablePage](./screenshots/image5.png)
 
-### 🏠 Dash Board
+### 🏠 Suggestion Page
 
-![DashboardPage](./screenshots/image2.png)
+![SuggestionPage](./screenshots/image2.png)
 
-### 🏠 Dash Board
+### 🏠 Course Page
 
-![DashboardPage](./screenshots/image1.png)
+![CoursePage](./screenshots/image1.png)

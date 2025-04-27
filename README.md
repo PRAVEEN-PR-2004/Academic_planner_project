@@ -108,4 +108,24 @@ GROQ_API_KEY=your_groq_api_key
 
 ### 🏠 Home Page
 
-![HomePage](./screenshots/image1.png)
+![HomePage](./screenshots/Screenshot%202025-04-27%20105431.png)
+
+### 🏠 Dash Board
+
+[!DashboardPage](./screenshots/image3.png)
+
+### 🏠 Dash Board
+
+[!DashboardPage](./screenshots/image4.png)
+
+### 🏠 Dash Board
+
+[!DashboardPage](./screenshots/image5.png)
+
+### 🏠 Dash Board
+
+[!DashboardPage](./screenshots/image2.png)
+
+### 🏠 Dash Board
+
+[!DashboardPage](./screenshots/image1.png)

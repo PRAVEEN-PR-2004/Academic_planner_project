@@ -1,6 +1,6 @@
 # 🌟 Academic Planner
 
-**Academic Planner** is a comprehensive platform designed to help students manage their academic tasks, schedules, and important deadlines effectively. It provides a smooth experience with features like task creation, management, planning, and user authentication.
+**Academic Planner** is a comprehensive platform designed to help students manage their academic tasks, schedules, and important deadlines effectively. It provides a smooth experience with features like task creation, management, planning, and secure authentication using **JWT (JSON Web Tokens)**.
 
 ---
 
@@ -18,8 +18,8 @@
 4. **🔍 Search and Filter Tasks**  
    Easily search and filter tasks by date, subject, or status.
 
-5. **🛡️ User Authentication**  
-   Secure login and registration system.
+5. **🛡️ Secure User Authentication (JWT)**  
+   User authentication and protected routes are securely handled using **JWT**.
 
 6. **💬 Interactive UI**  
    A clean, responsive, and intuitive user interface built with React and TailwindCSS.
@@ -29,15 +29,22 @@
 
 ---
 
+## 🌐 Live Link
+
+👉 [Live Website - Academic Planner](https://studyacademicplanner.netlify.app/)  
+_(Replace with your real live site link if needed.)_
+
+---
+
 ## 🛠️ Getting Started
 
 ### ⚙️ Prerequisites
 
-Before you begin, ensure you have the following installed:
+Make sure you have the following installed:
 
-- **Node.js**: For the Express backend and React frontend.
+- **Node.js**: For backend and frontend.
 - **Python 3**: For running the Python server.
-- **Vite**: For fast frontend development experience.
+- **Vite**: For a fast frontend development experience.
 - **Virtual Environment**: To manage Python dependencies.
 
 ---
@@ -49,16 +56,16 @@ Follow these steps to set up the project locally:
 1. Clone the repository:
 
    ```bash
-   git clone <your-repo-link-here>
+   git clone https://github.com/PRAVEEN-PR-2004/Academic_planner_project
    ```
 
 2. Navigate into the project directory:
 
    ```bash
-   cd your-project-folder
+   cd Academic_planner_project
    ```
 
-3. **Set up Frontend (academic_planner)**:
+3. **Set up Frontend (academic_planner):**
 
    ```bash
    cd academic_planner
@@ -66,15 +73,16 @@ Follow these steps to set up the project locally:
    npm run dev
    ```
 
-4. **Set up Node.js Backend (backend)**:
+4. **Set up Node.js Backend (backend):**
 
    ```bash
    cd backend
    npm install
-   npm run dev
+   node index.js
    ```
 
-5. **Set up Python Server (pythonserver)**:
+5. **Set up Python Server (pythonserver):**
+
    ```bash
    cd pythonserver
    python -m venv venv
@@ -88,14 +96,14 @@ Follow these steps to set up the project locally:
 ## 🗂️ Project Structure
 
 ```bash
-/your-project
+Academic_Planner
 │
 ├── academic_planner        # Frontend (React + Vite + TailwindCSS)
 │   ├── public
 │   ├── src
 │   └── index.html
 │
-├── backend                 # Backend (Node.js + Express)
+├── backend                 # Backend (Node.js + Express + JWT)
 │   ├── config
 │   ├── controllers
 │   ├── middleware
@@ -110,9 +118,37 @@ Follow these steps to set up the project locally:
 
 ---
 
-## 📜 License
+## 🖥️ Screenshots
 
-This project is licensed under the [MIT License](./LICENSE). See the LICENSE file for more details.
+### 🏠 Home Page
+
+![HomePage](./screenshots/Screenshot%202025-04-27%20105431.png)
+
+### 📊 Dashboard
+
+![DashboardPage](./screenshots/image3.png)
+
+### 📅 Calendar
+
+![CalendarPage](./screenshots/image4.png)
+
+### 🗓️ Timetable
+
+![TimeTablePage](./screenshots/image5.png)
+
+### 💡 Suggestion Page
+
+![SuggestionPage](./screenshots/image2.png)
+
+### 📚 Course Page
+
+![CoursePage](./screenshots/image1.png)
+
+---
+
+## 🔥 Conclusion
+
+**Academic Planner with AI** offers a smart, intuitive, and efficient way for students to manage their academic life — powered by modern web technologies and cutting-edge AI!
 
 ---
 
@@ -124,31 +160,3 @@ For any inquiries or feedback, feel free to reach out:
 - **Email**: [praveen2004ttp@gmail.com](mailto:praveen2004ttp@gmail.com)
 - **GitHub**: [PRAVEEN-PR-2004](https://github.com/PRAVEEN-PR-2004)
 - **Portfolio**: [Praveen's Portfolio](https://main--praveen-portfolio2.netlify.app/)
-
----
-
-### 🏠 Home Page
-
-![HomePage](./screenshots/Screenshot%202025-04-27%20105431.png)
-
-### 🏠 Dash Board
-
-![DashboardPage](./screenshots/image3.png)
-
-### 🏠 Calender
-
-![CalenderPage](./screenshots/image4.png)
-
-### 🏠 Time Table
-
-![TimeTablePage](./screenshots/image5.png)
-
-### 🏠 Suggestion Page
-
-![SuggestionPage](./screenshots/image2.png)
-
-### 🏠 Course Page
-
-![CoursePage](./screenshots/image1.png)
-🔥 Conclusion
-Academic Planner with AI offers a smart, intuitive, and efficient way for students to manage their academic life — powered by modern web technologies and cutting-edge AI!

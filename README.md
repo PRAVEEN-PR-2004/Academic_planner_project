@@ -100,7 +100,12 @@ Academic_Planner
 ├── academic_planner        # Frontend (React + Vite + TailwindCSS)
 │   ├── public
 │   ├── src
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── pages
+│   │   └── main.jsx
 │   └── index.html
+
 │
 ├── backend                 # Backend (Node.js + Express + JWT)
 │   ├── config

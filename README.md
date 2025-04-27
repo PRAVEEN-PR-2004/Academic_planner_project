@@ -1,45 +1,93 @@
-📚 Academic Planner with AI – Documentation
+🌐 AgroConnect
 
-1. Project Overview
-   Academic Planner is an intelligent, full-stack web application designed to help students:
+AgroConnect is an e-commerce platform designed to help users post and sell their products, while others can browse, filter, and purchase items. It provides a robust system with features like carts, wishlists, and profile management.
 
-Organize academic schedules
+## 🚀 Features
 
-Track deadlines
+1. **🛒 Huge Collections of Products**  
+   Explore a variety of products posted by different users.
 
-Manage study plans
+2. **🔍 Search and Filters**  
+   Quickly find products using search and filtering options based on category, price, and more.
 
-Receive AI-powered personalized study suggestions
+3. **🛍️ Cart**  
+   Easily add products to your cart and proceed to checkout.
 
-It combines a modern frontend, secure backend, and a powerful AI assistant to guide students in effectively planning their academic journey.
+4. **💖 Wishlist**  
+   Save products to your wishlist for future reference or purchase.
 
-2. Technologies Used
-   🚀 Frontend
-   React with Vite (Functional Components & Hooks)
+5. **🖥️ Interactive UI**  
+   Enjoy a smooth and responsive user interface designed for ease of navigation.
 
-Tailwind CSS and Tailwind UI for styling
+6. **👤 Profile Maintenance**  
+   Manage your personal profile, view order history, and update details with ease.
+7. **🔒 Google OAuth Login**  
+   Securely log in to your account using Google OAuth, providing a seamless authentication experience.
 
-Redux for state management
+## 🛠️ Getting Started
 
-Hosted on: Netlify
+### ⚙️ Prerequisites
 
-🛠️ Backend
-Node.js with Express
+Before you begin, ensure you have the following installed:
 
-JWT Authentication for security
+- **React.js**: Frontend framework
+- **Java Spring Boot**: Backend services and API
+- **Node.js**: JavaScript runtime environment
+- **Maven**: Dependency management for Spring Boot
 
-RESTful API design
+### 🔑 Google OAuth Configuration
 
-MongoDB for database storage
+To enable Google OAuth login, follow these steps to set up your Google Cloud project and obtain your client ID and secret. This configuration is essential for allowing users to securely log in with their Google accounts.
 
-Hosted on: Render
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing one.
+3. Navigate to "Credentials" and create OAuth 2.0 credentials.
+4. Set the redirect URI to match your backend application's endpoint.
+5. Add your client ID and secret to the application properties of your Spring Boot backend.
 
-🤖 AI Server
-Python Flask server
+### 📥 Installation
 
-Groq API integration (Llama 3 model)
+To set up the project locally, follow these steps:
 
-Natural Language Processing (NLP) based system prompt
+1. Clone the repository:
+
+   ```bash
+   https://github.com/lokesh-kumaravel/AgroConnect.git
+
+   ```
+
+2. Navigate into the project directory:
+
+   ```bash
+   cd AgroConnect
+
+   ```
+
+3. Navigate into the Frontend directory:
+
+   ```bash
+   npm install
+
+   ```
+
+4. Navigate into the Backend directory:
+
+   ```bash
+   mvn install
+
+   ```
+
+5. Run the frontend:
+
+   ```bash
+   npm run dev
+
+   ```
+
+6. Run the backend:
+   ```bash
+   mvn spring-boot:run
+   ```
 
 Hosted on: PythonAnywhere
 

@@ -31,8 +31,7 @@
 
 ## 🌐 Live Link
 
-👉 [Live Website - Academic Planner](https://studyacademicplanner.netlify.app/)  
-_(Replace with your real live site link if needed.)_
+👉 [Live Website - Academic Planner](https://studyacademicplanner.netlify.app/)
 
 ---
 

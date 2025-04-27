@@ -112,7 +112,7 @@ GROQ_API_KEY=your_groq_api_key
 
 ### 🏠 Dash Board
 
-[!DashboardPage](./screenshots/image3.png)
+![DashboardPage](./screenshots/image3.png)
 
 <!-- ### 🏠 Dash Board
 

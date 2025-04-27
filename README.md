@@ -1,21 +1,29 @@
 📚 Academic Planner with AI – Documentation
 
 1. Project Overview
-   Academic Planner is an intelligent, full-stack web application designed to help students organize their academic schedules, track deadlines, manage study plans, and receive AI-powered personalized study suggestions.
+   Academic Planner is an intelligent, full-stack web application designed to help students:
 
-It combines a modern frontend, secure backend, and a powerful AI assistant to guide students in planning their academic journey effectively.
+Organize academic schedules
+
+Track deadlines
+
+Manage study plans
+
+Receive AI-powered personalized study suggestions
+
+It combines a modern frontend, secure backend, and a powerful AI assistant to guide students in effectively planning their academic journey.
 
 2. Technologies Used
-   Frontend
+   🚀 Frontend
    React with Vite (Functional Components & Hooks)
 
 Tailwind CSS and Tailwind UI for styling
 
-Redux for State Management
+Redux for state management
 
 Hosted on: Netlify
 
-Backend
+🛠️ Backend
 Node.js with Express
 
 JWT Authentication for security
@@ -26,68 +34,90 @@ MongoDB for database storage
 
 Hosted on: Render
 
-AI Server
+🤖 AI Server
 Python Flask server
 
-Groq API integration (using Llama 3 model)
+Groq API integration (Llama 3 model)
 
 Natural Language Processing (NLP) based system prompt
 
 Hosted on: PythonAnywhere
 
 3. Core Features
-   User Profiles:
-   Users can create a profile including basic student information and enrolled course list.
+   👤 User Profiles
+   Create a profile with student details and enrolled courses.
 
-Timetable Creation:
+🗓️ Timetable Management
 Add and manage classes, assignments, exams.
 
-Smart Scheduling (AI-powered):
-AI suggests optimal study slots based on user's tasks and deadlines.
+⚡ Smart Scheduling (AI-Powered)
+AI suggests optimal study slots based on tasks and deadlines.
 
-Deadline Reminders:
-Automatic reminders for upcoming tasks, exams, and assignments.
+⏰ Deadline Reminders
+Automatic notifications for upcoming tasks, exams, and assignments.
 
-Progress Tracker:
-Visual representation of completed vs pending tasks, total study hours.
+📈 Progress Tracker
+Visual dashboard showing completed vs pending tasks and total study hours.
 
-AI Study Tips:
-Personalized suggestions and productivity advice using Groq API.
+🧠 AI Study Tips
+Personalized suggestions and productivity advice via Groq API.
 
-Calendar View:
-Visual planner (Day/Week/Month view) for easier management.
+📅 Calendar View
+View schedules by Day, Week, or Month for easier management.
 
-4. AI Recommendation Approach
-   The AI server uses Groq's Llama 3 model through a Python Flask server. Here's how it works:
+4. AI Recommendation System
+   The AI server utilizes Groq’s Llama 3 model via a Python Flask backend.
 
+🔹 How It Works:
 Input:
-Students can interact with a chatbot or request study suggestions.
+Students interact with a chatbot or request study suggestions.
 
 Processing:
-The system uses a carefully crafted System Prompt that:
 
-Guides the AI to focus on academic planning
+Uses a crafted system prompt to:
 
-Provides advice on scheduling, goal setting, productivity, and task management
+Focus on academic planning
 
-Ensures responses are friendly, concise, and on-topic
+Provide scheduling, goal-setting, and productivity advice
+
+Keep responses friendly, concise, and on-topic
 
 Output:
-The AI responds with personalized study tips, schedule optimizations, and motivational strategies.
+AI responds with personalized:
 
-🧠 NLP and User Modeling:
-The AI considers the user’s goals, subjects, upcoming deadlines, and preferences to generate suggestions.
-Frontend Setup
-bash
-Copy
-Edit
-cd frontend
-npm install
-npm run dev
-cd backend
-npm install
-npm run dev
-Setup environment variables:
+Study tips
+
+Schedule optimizations
+
+Motivational strategies
+
+🔹 NLP and User Modeling
+AI considers:
+
+Student goals
+
+Subjects enrolled
+
+Upcoming deadlines
+
+User preferences to generate accurate and effective suggestions.
+
+5. Project Setup Instructions
+   ⚙️ Frontend Setup
+   bash
+   Copy
+   Edit
+   cd frontend
+   npm install
+   npm run dev
+   ⚙️ Backend Setup
+   bash
+   Copy
+   Edit
+   cd backend
+   npm install
+   npm run dev
+   Setup required environment variables:
 
 MONGODB_URI
 
@@ -95,15 +125,18 @@ JWT_SECRET
 
 FRONTEND_URL
 
-AI Server Setup
+⚙️ AI Server Setup
 bash
 Copy
 Edit
 cd ai-server
 pip install -r requirements.txt
 python app.py
-Setup .env file with:
+Setup .env file inside ai-server/ with:
 
+env
+Copy
+Edit
 GROQ_API_KEY=your_groq_api_key
 
 ### 🏠 Home Page
@@ -129,3 +162,5 @@ GROQ_API_KEY=your_groq_api_key
 ### 🏠 Course Page
 
 ![CoursePage](./screenshots/image1.png)
+🔥 Conclusion
+Academic Planner with AI offers a smart, intuitive, and efficient way for students to manage their academic life — powered by modern web technologies and cutting-edge AI!

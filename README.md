@@ -108,4 +108,4 @@ GROQ_API_KEY=your_groq_api_key
 
 ### 🏠 Home Page
 
-![HomePage](https://imgur.com/a/ZQfylJu)
+![HomePage](./screenshots/image1.png)

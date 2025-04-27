@@ -29,6 +29,12 @@
 
 ---
 
+## 🌐 Video Explanation Link
+
+👉 [Video Explanation](https://drive.google.com/file/d/1MRIppiz29a6I5xbyjHFnw97EmN6tx-d2/view?usp=sharing)
+
+---
+
 ## 🌐 Live Link
 
 👉 [Live Website - Academic Planner](https://studyacademicplanner.netlify.app/)

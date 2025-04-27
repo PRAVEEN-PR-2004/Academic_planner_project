@@ -105,3 +105,7 @@ python app.py
 Setup .env file with:
 
 GROQ_API_KEY=your_groq_api_key
+
+### 🏠 Home Page
+
+![HomePage](https://ibb.co/4ZpfCsPm)

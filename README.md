@@ -35,6 +35,12 @@
 
 ---
 
+## 🌐 Explore the UI/UX wireframes, prototypes, and design system:
+
+👉 [Figma link](https://www.figma.com/proto/7BN21Yq3r0fjZHZQ8KjGgu/Academic-Planner?node-id=1-2&p=f&t=V91rTyxyRpfFg0TP-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2&show-proto-sidebar=1)
+
+---
+
 ## 🛠️ Getting Started
 
 ### ⚙️ Prerequisites

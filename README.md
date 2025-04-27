@@ -128,9 +128,9 @@ Academic_Planner
 
 ---
 
-## 🧩 ARCHITECTURE DIAGRAM
+## 🧩 FLOW DIAGRAM
 
-![ARCHITECTURE DIAGRAM](./screenshots/ChatGPT%20Image%20Apr%2027,%202025,%2010_09_39%20PM.png)
+![FLOW DIAGRAM](./screenshots/ChatGPT%20Image%20Apr%2027,%202025,%2010_09_39%20PM.png)
 
 ## 🧩 ARCHITECTURE DIAGRAM
 
